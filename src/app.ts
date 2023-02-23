@@ -1,6 +1,8 @@
 import styles from './app.module.scss'
-import Navbar from './componenten/navbar/navbar';
-import NavItem from './componenten/navitem/navitem';
+import Navbar from './componenten/navbar';
+import NavItem from './componenten/navitem';
+import Home from './pages/home';
+import Work from './pages/work';
 
 
 window.addEventListener('hashchange', function () {
@@ -16,13 +18,9 @@ const getPageContent = (): HTMLDivElement => {
 
   switch (route) {
     case "":
-      const home = document.createElement('div');
-      home.innerHTML = "<p>home page <p>"
-      return home;
+      return Home();
     case "#work":
-      const work = document.createElement('div');
-      work.innerHTML = "<p> work page <p>"
-      return work;
+      return Work();
     default:
       const notfound = document.createElement('div');
       notfound.innerHTML = "<p>404 not found<p>"
