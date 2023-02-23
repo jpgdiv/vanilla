@@ -1,4 +1,12 @@
 {
   "name": "vanilla",
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "yarn@3.3.1",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "scripts": {
+    "build": "webpack"
+  }
 }
