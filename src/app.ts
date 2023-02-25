@@ -3,15 +3,24 @@ import Navbar from './componenten/navbar';
 import NavItem from './componenten/navitem';
 import Home from './pages/home';
 import Work from './pages/work';
+import { createContext } from './componenten/store';
+import { RenderContainer } from './utilty';
 
-
-window.addEventListener('hashchange', function () {
-  const contentContainer = this.document.getElementById('content-container');
+const rerender = () => {
+  const contentContainer = document.getElementById('content-container');
 
   if (!contentContainer?.lastChild) return
   contentContainer.removeChild(contentContainer.lastChild);
   contentContainer.appendChild(getPageContent());
+}
+
+window.addEventListener('hashchange', function () {
+  rerender()
 });
+
+const eventHandlerRerender = () => {
+  rerender()
+}
 
 const getPageContent = (): HTMLDivElement => {
   const route = window.location.hash;
@@ -28,27 +37,29 @@ const getPageContent = (): HTMLDivElement => {
   }
 }
 
-
-
 const App = () => {
   const app = document.createElement('div');
-  const content = document.createElement('div');
-
+  createContext(app, eventHandlerRerender);
   app.className = styles.app
 
-  app.append(
-    Navbar({
-      menuitems: [
-        NavItem({ text: "home", route: "#" }),
-        NavItem({ text: "work", route: "#work" }),
-      ],
-    })
-  )
+  const navbar = RenderContainer({
+    logo: "Learn ",
+    children: [
+      NavItem({ text: "home", route: "#" }),
+      NavItem({ text: "work", route: "#work" }),
+    ],
+  }, Navbar)
+
+  const content = document.createElement('div');
   content.id = "content-container"
   content.append(getPageContent());
-  app.append(content)
+
+  app.append(...[navbar, content])
+
 
   return app;
 }
+
+
 
 export default App

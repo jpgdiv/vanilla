@@ -1,15 +1,12 @@
 
-const btnOnClickHandler = () => {
 
-    console.log('hello world')
-}
-const Button = () => {
+const Button = (text: string, onClickHandler: () => void) => {
 
     const btn = document.createElement('button');
 
 
-    btn.innerHTML = 'Click me and check the console!';
-    btn.onclick = btnOnClickHandler;
+    btn.innerHTML = text ?? 'Click me and check the console!';
+    btn.onclick = onClickHandler;
 
     return btn;
 }
